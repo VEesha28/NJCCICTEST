@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&display=swap" rel="stylesheet">
+    <title>DVCTF</title>
+    <link rel="icon" href="assets/dvctf-icon.png" type="image/x-icon">
+    <script src="asset/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="asset/NJCCICAdvancedInternWeek2CTF/index.html/css/style.css">
+</head>
+<body>
+    <div id="splash-screen">
+        <h1>Welcome to DVCTF</h1>
+        <p>Get ready to solve exciting challenges!</p>
+    </div>
+    <div id="particles-js"></div>
+    <div class="container">
+        <h2>DVCTF Challenges</h2>
+
+        <div class="challenge" id="challenge1-link">
+            <a href="https://vkunamneni1.github.io/challenges/challenge1.html">Challenge 1: Sanity Check</a>
+        </div>
+
+        <div class="challenge" id="challenge2-link">
+            <a href="https://vkunamneni1.github.io/challenges/challenge2.html">Challenge 2: Auth Bypass</a>
+        </div>
+
+        <div class="challenge" id="challenge3-link">
+            <a href="https://vkunamneni1.github.io/challenges/challenge3.html">Challenge 3: Hidden Pixels</a>
+        </div>
+
+        <div class="challenge" id="challenge4-link">
+            <a href="https://vkunamneni1.github.io/challenges/challenge4.html">Challenge 4: Keygenme</a>
+        </div>
+
+        <div class="challenge" id="challenge5-link">
+            <a href="https://vkunamneni1.github.io/challenges/challenge5.html">Challenge 5: Caesar Shift</a>
+        </div>
+
+        <div class="points">Points: <span id="points">0</span></div>
+    </div>
+    
+    <button class="clear-points-button" onclick="clearAllProgress()">Clear Points</button>
+    
+    <div id="about-us-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p><u>Instructions</u>
+            <br><br>
+            Solve each challenge by clicking the links above. Each challenge will provide a unique task to complete.
+            <br><br>
+            Good luck and have fun!
+            <br><br>
+            Made with ♥️ by Dhikshith Gajulapalli and Vedaswaroop Kunamneni for NJCCIC Advanced Internship</p>
+        </div>
+    </div>
+    <div id="about-us-icon" class="info-icon" onclick="openAboutUsModal()"><img src="https://vkunamneni1.github.io/../assets/dvctf-icon.png" alt="i"></div>
+    
+    <script>
+        // Check completion status and update challenge appearance on home page
+        document.addEventListener('DOMContentLoaded', function() {
+            const challenges = ['challenge1', 'challenge2', 'challenge3', 'challenge4', 'challenge5'];
+            
+            // Load and display points
+            const points = localStorage.getItem('dvctf-points') || '0';
+            document.getElementById('points').textContent = points;
+            
+            challenges.forEach(challengeId => {
+                const isCompleted = localStorage.getItem(`${challengeId}-completed`) === 'true';
+                const challengeElement = document.getElementById(`${challengeId}-link`);
+                
+                if (isCompleted && challengeElement) {
+                    challengeElement.classList.add('completed');
+                    const link = challengeElement.querySelector('a');
+                    if (link) {
+                        link.innerHTML += ' ✅';
+                    }
+                }
+            });
+        });
+        
+        function clearAllProgress() {
+            // Clear all localStorage data
+            localStorage.removeItem('dvctf-points');
+            const challenges = ['challenge1', 'challenge2', 'challenge3', 'challenge4', 'challenge5'];
+            challenges.forEach(challengeId => {
+                localStorage.removeItem(`${challengeId}-completed`);
+                localStorage.removeItem(`${challengeId}-hint-used`);
+            });
+            
+            // Reload page to reset visual state
+            location.reload();
+        }
+    </script>
+    
+    <script src="asset/NJCCICAdvancedInternWeek2CTF/index.html/js/ctf.js"></script>
+</body>
+</html>
